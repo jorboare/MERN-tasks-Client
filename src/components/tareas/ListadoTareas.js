@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import proyectoContext from '../../context/proyectos/proyectoContext'
-
+import tareaContext from '../../context/tareas/tareaContext'
 import Tarea from './Tarea'
 
 
@@ -13,6 +13,12 @@ const ListadoTareas = () => {
     const proyectosContext = useContext(proyectoContext)
     const { proyecto, eliminarProyecto } = proyectosContext
 
+
+    //State de tareas
+
+    const tareasContext = useContext(tareaContext)
+    const { tareasproyecto } = tareasContext
+
     //Si non hay proyecto seleccionado
 
     if (!proyecto) return <h2>Selecciona un proyecto</h2>
@@ -20,12 +26,7 @@ const ListadoTareas = () => {
 
     const [proyectoActual] = proyecto
 
-    const tareasProyecto = [
-        { nombre: 'Elegir Plataforma', estado: true },
-        { nombre: 'Elegir Colores', estado: false },
-        { nombre: 'Elegir Plataformas de pago', estado: false },
-        { nombre: 'Elegir Hosting', estado: true },
-    ]
+
 
     //Eliminar proyecto
 
@@ -37,10 +38,10 @@ const ListadoTareas = () => {
             <h2>Proyecto: {proyectoActual.nombre} </h2>
 
             <ul className='listado-tareas'>
-                {tareasProyecto.length === 0 ?
+                {tareasproyecto.length === 0 ?
                     (<li className='tarea'><p>No hay tareas</p></li>)
                     :
-                    tareasProyecto.map((tarea, idx) => (
+                    tareasproyecto.map((tarea, idx) => (
                         <Tarea
                             key={idx}
                             tarea={tarea}
