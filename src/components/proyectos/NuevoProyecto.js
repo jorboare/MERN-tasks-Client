@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import proyectoContext from '../../context/proyectos/proyectoContext'
+
 
 const NuevoProyecto = () => {
+
+    //State del formulario
+
+    const proyectosContext = useContext(proyectoContext)
+    const { formulario, errorformulario, mostrarFormulario, agregarProyecto, mostrarError } = proyectosContext
 
     //State
 
@@ -23,11 +30,22 @@ const NuevoProyecto = () => {
     const onSubmitProyecto = e => {
         e.preventDefault()
 
-        //validar
+        //validar el proyecto
+        if (nombre.trim() === '') {
+            mostrarError()
+            return
+        }
+
+
 
         // agregar al state
+        agregarProyecto(proyecto)
 
         //reiniciar el form
+
+        guardarProyecto({
+            nombre: ''
+        })
     }
 
     return (
@@ -35,29 +53,36 @@ const NuevoProyecto = () => {
             <button
                 type='button'
                 className='btn btn-block btn-primario'
+                onClick={() => mostrarFormulario()}
             >NuevoProyecto</button>
 
-            <form
-                className='formulario-nuevo-proyecto'
-                onSubmit={onSubmitProyecto}>
+            {formulario ?
+                (
+                    <form
+                        className='formulario-nuevo-proyecto'
+                        onSubmit={onSubmitProyecto}>
 
-                <input
-                    type='text'
-                    className='input-text'
-                    placeholder='Nombre Proyecto'
-                    name='nombre'
-                    value={nombre}
-                    onChange={onChangeProyecto}
-                />
+                        <input
+                            type='text'
+                            className='input-text'
+                            placeholder='Nombre Proyecto'
+                            name='nombre'
+                            value={nombre}
+                            onChange={onChangeProyecto}
+                        />
 
-                <input
-                    type='submit'
-                    className='btn btn-primario btn-block'
-                    value='Agregar Proyecto'
-                />
+                        <input
+                            type='submit'
+                            className='btn btn-primario btn-block'
+                            value='Agregar Proyecto'
+                        />
 
 
-            </form>
+                    </form>
+                )
+                :
+                null}
+            {errorformulario ? <p className='mensaje error'>El nombre del Proyecto es obligatorio</p> : null}
         </>
     );
 }
