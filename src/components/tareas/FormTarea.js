@@ -1,5 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import proyectoContext from '../../context/proyectos/proyectoContext'
+import tareaContext from '../../context/tareas/tareaContext'
+import { v4 as uuidv4 } from 'uuid'
 
 
 const FormTarea = () => {
@@ -9,23 +11,58 @@ const FormTarea = () => {
     const proyectosContext = useContext(proyectoContext)
     const { proyecto } = proyectosContext
 
+    //Obtener la funcion context de tarea
+    const tareasContext = useContext(tareaContext)
+    const { errortarea, agregarTareas, validarTarea, obtenerTareas } = tareasContext
+
+    //State del formulario
+
+    const [tarea, guardarTarea] = useState({
+        nombre: ''
+    })
+
+    //Extraer el nombre del proyecto
+
+    const { nombre } = tarea
+
+    //Si no hay proyecto seleccionado
     if (!proyecto) return null
 
     //Array destructuring
 
     const [proyectoActual] = proyecto
 
+    //Leer los valores del formulario
+    const handleChange = e => {
+        guardarTarea({
+            ...tarea,
+            [e.target.name]: e.target.value
+        })
+    }
+
     const onSubmit = e => {
         e.preventDefault()
 
         //validar
+        if (nombre.trim() === '') {
+            validarTarea()
+            return
+        }
 
-        //pasar la valudación
+        //agregar la nueva tarea al state de tareas
+        tarea.proyectoId = proyectoActual.id
+        tarea.estado = false
+        tarea.id = uuidv4()
+        agregarTareas(tarea)
 
+        //Obtener y filtrar las tareas
 
-        //agragar la nueva tarea al state de tareas
+        obtenerTareas(proyectoActual.id)
 
         //reiniciar el form
+        guardarTarea({
+            nombre: ''
+        })
     }
     return (
         <div className='formulario'>
@@ -36,8 +73,10 @@ const FormTarea = () => {
                     <input
                         type='text'
                         className='input-text'
-                        placeholder='nombre Tarea...'
+                        placeholder='Nombre Tarea...'
                         name='nombre'
+                        value={nombre}
+                        onChange={handleChange}
                     />
                 </div>
                 <div className='contenedor-input'>
@@ -48,6 +87,7 @@ const FormTarea = () => {
                     />
                 </div>
             </form>
+            {errortarea ? <p className='mensaje error'>El nombre de la tarea es obligatorio</p> : null}
         </div>
     );
 }
