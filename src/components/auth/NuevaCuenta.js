@@ -11,7 +11,6 @@ const NuevaCuenta = () => {
         confirmar: ''
     })
 
-    const [Error, guardarError] = useState(false)
 
     // Extraer datos
 
@@ -30,12 +29,6 @@ const NuevaCuenta = () => {
 
         //validar
 
-        if (nombre.trim() === "" || email.trim() === "" || password.trim() === "" || confirmar.trim() === "") {
-            guardarError(true)
-            return
-        }
-
-        guardarError(false)
     }
     return (
         <div className='form-usuario'>

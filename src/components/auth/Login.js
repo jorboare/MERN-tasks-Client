@@ -9,7 +9,7 @@ const Login = () => {
         password: ''
     })
 
-    const [Error, guardarError] = useState(false)
+
 
     // Extraer datos
 
@@ -28,12 +28,7 @@ const Login = () => {
 
         //validar
 
-        if (email.trim() === "" || password.trim() === "") {
-            guardarError(true)
-            return
-        }
 
-        guardarError(false)
     }
     return (
         <div className='form-usuario'>
