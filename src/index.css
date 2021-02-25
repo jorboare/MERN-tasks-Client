@@ -87,6 +87,14 @@ a {
   display: block;
   background-color: transparent;
 }
+.btn-white {
+  margin: 0;
+  padding: 0;
+  display: block;
+color: white;
+  background-color: transparent;
+
+}
 
 @media (min-width: 768px) {
   .contenedor-app {
