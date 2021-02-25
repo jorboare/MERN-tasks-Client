@@ -1,6 +1,7 @@
-import { FORMULARIO_PROYECTO } from "../../types"
+
 import { MOSTRAR_ALERTA, OCULTAR_ALERTA } from '../../types'
 
+/* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default (state, action) => {
     switch (action.type) {
         case MOSTRAR_ALERTA:

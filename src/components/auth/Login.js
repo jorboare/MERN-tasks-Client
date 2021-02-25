@@ -23,6 +23,8 @@ const Login = (props) => {
             mostrarAlerta(mensaje.msg, mensaje.categoria)
 
         }
+
+
     }, [mensaje, autenticado, props.history])
 
     //State

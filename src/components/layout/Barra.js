@@ -9,7 +9,9 @@ const Barra = () => {
 
     useEffect(() => {
         usuarioAutenticado()
-    }, [])
+
+        //esLint-disable-next-line
+    }, [usuarioAutenticado])
 
     return (
         <header className='app-header'>

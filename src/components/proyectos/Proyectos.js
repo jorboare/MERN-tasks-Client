@@ -13,6 +13,7 @@ const Proyectos = () => {
 
     useEffect(() => {
         usuarioAutenticado()
+
     }, [])
 
     return (
